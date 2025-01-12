@@ -8,14 +8,7 @@ public class Statement {
         StringBuilder result = new StringBuilder(String.format("청구 내역 (고객명: %s)\n", invoice.getCustomer()));
 
         for (Performance performance : invoice.getPerformances()) {
-
-            // 포인트를 적립한다.
-            volumeCredits += Math.max(performance.getAudience() - 30, 0);
-
-            // 희극 관객 5명마다 추가 포인트를 제공한다.
-            if ("comedy".equals(playFor(performance, plays).getType())) {
-                volumeCredits += performance.getAudience() / 5;
-            }
+            volumeCredits += volumeCreditsFor(plays, performance);
 
             // 청구 내역을 출력한다.
             result.append(String.format(" %s: %.2f (%d석)\n", playFor(performance, plays).getName(), (double) amountFor(performance, plays) / 100, performance.getAudience()));
@@ -25,7 +18,16 @@ public class Statement {
         return result.toString();
     }
 
-    private static Play playFor(Performance performance, Plays plays) {
+    private int volumeCreditsFor(Plays plays, Performance performance) {
+        int result = 0;
+        result += Math.max(performance.getAudience() - 30, 0);
+        if ("comedy".equals(playFor(performance, plays).getType())) {
+            result += performance.getAudience() / 5;
+        }
+        return result;
+    }
+
+    private Play playFor(Performance performance, Plays plays) {
         return plays.findByPlayID(performance.getPlayID());
     }
 
