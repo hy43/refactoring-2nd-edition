@@ -12,13 +12,18 @@ public class Statement {
             totalAmount += amountFor(performance, plays);
         }
 
+        int volumeCredits = totalVolumeCredits(invoice, plays);
+
+        result.append(String.format("총액: %.2f\n적립 포인트: %d점\n", totalAmount / 100, volumeCredits));
+        return result.toString();
+    }
+
+    private int totalVolumeCredits(Invoice invoice, Plays plays) {
         int volumeCredits = 0;
         for (Performance performance : invoice.getPerformances()) {
             volumeCredits += volumeCreditsFor(plays, performance);
         }
-
-        result.append(String.format("총액: %.2f\n적립 포인트: %d점\n", totalAmount / 100, volumeCredits));
-        return result.toString();
+        return volumeCredits;
     }
 
     private int volumeCreditsFor(Plays plays, Performance performance) {
