@@ -3,9 +3,9 @@ package refactoring.app.domain;
 public class Statement {
 
     String statement(Invoice invoice, Plays plays) throws Exception {
-        double totalAmount = 0;
         StringBuilder result = new StringBuilder(String.format("청구 내역 (고객명: %s)\n", invoice.getCustomer()));
 
+        double totalAmount = 0;
         for (Performance performance : invoice.getPerformances()) {
             // 청구 내역을 출력한다.
             result.append(String.format(" %s: %.2f (%d석)\n", playFor(performance, plays).getName(), (double) amountFor(performance, plays) / 100, performance.getAudience()));
