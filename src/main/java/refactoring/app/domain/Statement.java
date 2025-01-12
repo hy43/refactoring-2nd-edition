@@ -1,7 +1,8 @@
 package refactoring.app.domain;
 
 public class Statement {
-    StringBuilder statement(Invoice invoice, Plays plays) throws Exception {
+
+    String statement(Invoice invoice, Plays plays) throws Exception {
         double totalAmount = 0;
         int volumeCredits = 0;
         StringBuilder result = new StringBuilder(String.format("청구 내역 (고객명: %s)\n", invoice.getCustomer()));
@@ -23,7 +24,7 @@ public class Statement {
             totalAmount += thisAmount;
         }
         result.append(String.format("총액: %.2f\n적립 포인트: %d점\n", totalAmount / 100, volumeCredits));
-        return result;
+        return result.toString();
     }
 
     private int amountFor(Performance performance, Play play) throws Exception {

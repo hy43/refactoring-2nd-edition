@@ -33,7 +33,7 @@ class StatementTest {
         Statement statement = new Statement();
 
         // 실행 및 결과 확인
-        StringBuilder result = statement.statement(invoice, plays);
+        String result = statement.statement(invoice, plays);
         String expected = "청구 내역 (고객명: BigCo)\n" +
                 " Hamlet: 650.00 (55석)\n" +
                 " As You Like It: 580.00 (35석)\n" +
@@ -42,6 +42,6 @@ class StatementTest {
                 "적립 포인트: 47점\n";
 
         // 결과 검증
-        assertEquals(expected, result.toString());
+        assertEquals(expected, result);
     }
 }
