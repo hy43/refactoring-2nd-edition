@@ -4,7 +4,6 @@ public class Statement {
 
     String statement(Invoice invoice, Plays plays) throws Exception {
         double totalAmount = 0;
-        int volumeCredits = 0;
         StringBuilder result = new StringBuilder(String.format("청구 내역 (고객명: %s)\n", invoice.getCustomer()));
 
         for (Performance performance : invoice.getPerformances()) {
@@ -13,6 +12,7 @@ public class Statement {
             totalAmount += amountFor(performance, plays);
         }
 
+        int volumeCredits = 0;
         for (Performance performance : invoice.getPerformances()) {
             volumeCredits += volumeCreditsFor(plays, performance);
         }
