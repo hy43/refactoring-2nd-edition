@@ -3,6 +3,10 @@ package refactoring.app.domain;
 public class Statement {
 
     String statement(Invoice invoice, Plays plays) throws Exception {
+        return renderPlainText(invoice, plays);
+    }
+
+    private String renderPlainText(Invoice invoice, Plays plays) throws Exception {
         StringBuilder result = new StringBuilder(String.format("청구 내역 (고객명: %s)\n", invoice.getCustomer()));
 
         for (Performance performance : invoice.getPerformances()) {
