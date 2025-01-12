@@ -9,6 +9,9 @@ public class Statement {
         for (Performance performance : invoice.getPerformances()) {
             // 청구 내역을 출력한다.
             result.append(String.format(" %s: %.2f (%d석)\n", playFor(performance, plays).getName(), (double) amountFor(performance, plays) / 100, performance.getAudience()));
+        }
+
+        for (Performance performance : invoice.getPerformances()) {
             totalAmount += amountFor(performance, plays);
         }
 
