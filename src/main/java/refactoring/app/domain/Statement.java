@@ -1,33 +1,38 @@
 package refactoring.app.domain;
 
+import refactoring.app.dto.StatementDto;
+
+import java.util.List;
+
 public class Statement {
 
     String statement(Invoice invoice, Plays plays) throws Exception {
-        return renderPlainText(invoice, plays);
+        StatementDto dto = new StatementDto(invoice);
+        return renderPlainText(dto, plays);
     }
 
-    private String renderPlainText(Invoice invoice, Plays plays) throws Exception {
-        StringBuilder result = new StringBuilder(String.format("청구 내역 (고객명: %s)\n", invoice.getCustomer()));
+    private String renderPlainText(StatementDto data, Plays plays) throws Exception {
+        StringBuilder result = new StringBuilder(String.format("청구 내역 (고객명: %s)\n", data.getCustomer()));
 
-        for (Performance performance : invoice.getPerformances()) {
+        for (Performance performance : data.getPerformances()) {
             result.append(String.format(" %s: %.2f (%d석)\n", playFor(performance, plays).getName(), (double) amountFor(performance, plays) / 100, performance.getAudience()));
         }
 
-        result.append(String.format("총액: %.2f\n적립 포인트: %d점\n", totalAmount(invoice, plays) / 100, totalVolumeCredits(invoice, plays)));
+        result.append(String.format("총액: %.2f\n적립 포인트: %d점\n", totalAmount(data.getPerformances(), plays) / 100, totalVolumeCredits(data.getPerformances(), plays)));
         return result.toString();
     }
 
-    private double totalAmount(Invoice invoice, Plays plays) throws Exception {
+    private double totalAmount(List<Performance> performances, Plays plays) throws Exception {
         double result = 0;
-        for (Performance performance : invoice.getPerformances()) {
+        for (Performance performance : performances) {
             result += amountFor(performance, plays);
         }
         return result;
     }
 
-    private int totalVolumeCredits(Invoice invoice, Plays plays) {
+    private int totalVolumeCredits(List<Performance> performances, Plays plays) {
         int volumeCredits = 0;
-        for (Performance performance : invoice.getPerformances()) {
+        for (Performance performance : performances) {
             volumeCredits += volumeCreditsFor(plays, performance);
         }
         return volumeCredits;
