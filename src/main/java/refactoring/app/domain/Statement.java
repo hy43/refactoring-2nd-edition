@@ -21,6 +21,7 @@ public class Statement {
     private int volumeCreditsFor(Plays plays, Performance performance) {
         int result = 0;
         result += Math.max(performance.getAudience() - 30, 0);
+
         if ("comedy".equals(playFor(performance, plays).getType())) {
             result += performance.getAudience() / 5;
         }
