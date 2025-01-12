@@ -9,11 +9,11 @@ public class Statement {
             result.append(String.format(" %s: %.2f (%d석)\n", playFor(performance, plays).getName(), (double) amountFor(performance, plays) / 100, performance.getAudience()));
         }
 
-        result.append(String.format("총액: %.2f\n적립 포인트: %d점\n", appleSause(invoice, plays) / 100, totalVolumeCredits(invoice, plays)));
+        result.append(String.format("총액: %.2f\n적립 포인트: %d점\n", totalAmount(invoice, plays) / 100, totalVolumeCredits(invoice, plays)));
         return result.toString();
     }
 
-    private double appleSause(Invoice invoice, Plays plays) throws Exception {
+    private double totalAmount(Invoice invoice, Plays plays) throws Exception {
         double result = 0;
         for (Performance performance : invoice.getPerformances()) {
             result += amountFor(performance, plays);
