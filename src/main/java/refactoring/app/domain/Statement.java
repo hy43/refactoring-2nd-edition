@@ -8,12 +8,15 @@ public class Statement {
         StringBuilder result = new StringBuilder(String.format("청구 내역 (고객명: %s)\n", invoice.getCustomer()));
 
         for (Performance performance : invoice.getPerformances()) {
-            volumeCredits += volumeCreditsFor(plays, performance);
-
             // 청구 내역을 출력한다.
             result.append(String.format(" %s: %.2f (%d석)\n", playFor(performance, plays).getName(), (double) amountFor(performance, plays) / 100, performance.getAudience()));
             totalAmount += amountFor(performance, plays);
         }
+
+        for (Performance performance : invoice.getPerformances()) {
+            volumeCredits += volumeCreditsFor(plays, performance);
+        }
+
         result.append(String.format("총액: %.2f\n적립 포인트: %d점\n", totalAmount / 100, volumeCredits));
         return result.toString();
     }
