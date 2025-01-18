@@ -30,10 +30,10 @@ class StatementTest {
         Invoice invoice = invoices[0];
 
         // Statement 객체 생성
-        Statement statement = new Statement();
+        Statement statement = new Statement(plays);
 
         // 실행 및 결과 확인
-        String result = statement.statement(invoice, plays);
+        String result = statement.statement(invoice);
         String expected = "청구 내역 (고객명: BigCo)\n" +
                 " Hamlet: 650.00 (55석)\n" +
                 " As You Like It: 580.00 (35석)\n" +

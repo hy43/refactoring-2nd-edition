@@ -5,13 +5,18 @@ import refactoring.app.dto.StatementDto;
 import java.util.List;
 
 public class Statement {
+    private final Plays plays;
 
-    String statement(Invoice invoice, Plays plays) throws Exception {
-        StatementDto dto = new StatementDto(invoice);
-        return renderPlainText(dto, plays);
+    public Statement(Plays plays) {
+        this.plays = plays;
     }
 
-    private String renderPlainText(StatementDto data, Plays plays) throws Exception {
+    String statement(Invoice invoice) throws Exception {
+        StatementDto dto = new StatementDto(invoice);
+        return renderPlainText(dto);
+    }
+
+    private String renderPlainText(StatementDto data) throws Exception {
         StringBuilder result = new StringBuilder(String.format("청구 내역 (고객명: %s)\n", data.getCustomer()));
 
         for (Performance performance : data.getPerformances()) {
