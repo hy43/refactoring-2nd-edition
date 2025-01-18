@@ -5,11 +5,11 @@ import refactoring.app.domain.Performance;
 
 import java.util.List;
 
-public class StatementDto {
+public class StatementData {
     private String customer;
     private List<Performance> performances;
 
-    public StatementDto(Invoice invoice) {
+    public StatementData(Invoice invoice) {
         this.customer = invoice.getCustomer();
         this.performances = invoice.getPerformances();
     }
@@ -18,15 +18,7 @@ public class StatementDto {
         return customer;
     }
 
-    public void setCustomer(String customer) {
-        this.customer = customer;
-    }
-
     public List<Performance> getPerformances() {
         return performances;
-    }
-
-    public void setPerformances(List<Performance> performances) {
-        this.performances = performances;
     }
 }

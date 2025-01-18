@@ -1,6 +1,6 @@
 package refactoring.app.domain;
 
-import refactoring.app.dto.StatementDto;
+import refactoring.app.dto.StatementData;
 
 import java.text.NumberFormat;
 import java.util.List;
@@ -14,11 +14,11 @@ public class Statement {
     }
 
     String statement(Invoice invoice) throws Exception {
-        StatementDto dto = new StatementDto(invoice);
-        return renderPlainText(dto);
+        StatementData data = new StatementData(invoice);
+        return renderPlainText(data);
     }
 
-    private String renderPlainText(StatementDto data) throws Exception {
+    private String renderPlainText(StatementData data) throws Exception {
         StringBuilder result = new StringBuilder(String.format("청구 내역 (고객명: %s)\n", data.getCustomer()));
 
         for (Performance performance : data.getPerformances()) {
