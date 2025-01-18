@@ -2,7 +2,9 @@ package refactoring.app.domain;
 
 import refactoring.app.dto.StatementDto;
 
+import java.text.NumberFormat;
 import java.util.List;
+import java.util.Locale;
 
 public class Statement {
     private final Plays plays;
@@ -20,11 +22,18 @@ public class Statement {
         StringBuilder result = new StringBuilder(String.format("청구 내역 (고객명: %s)\n", data.getCustomer()));
 
         for (Performance performance : data.getPerformances()) {
-            result.append(String.format(" %s: %.2f (%d석)\n", playFor(performance, plays).getName(), (double) amountFor(performance, plays) / 100, performance.getAudience()));
+            result.append(String.format(" %s: %s (%d석)\n", playFor(performance, plays).getName(), usd(amountFor(performance, plays) / 100), performance.getAudience()));
         }
 
-        result.append(String.format("총액: %.2f\n적립 포인트: %d점\n", totalAmount(data.getPerformances(), plays) / 100, totalVolumeCredits(data.getPerformances(), plays)));
+        result.append(String.format("총액: %s\n적립 포인트: %d점\n", usd(totalAmount(data.getPerformances(), plays) / 100), totalVolumeCredits(data.getPerformances(), plays)));
         return result.toString();
+    }
+
+    private String usd(double number) {
+        NumberFormat currencyFormat = NumberFormat.getCurrencyInstance(Locale.US);
+        currencyFormat.setMinimumFractionDigits(2);
+        return currencyFormat.format(number);
+
     }
 
     private double totalAmount(List<Performance> performances, Plays plays) throws Exception {

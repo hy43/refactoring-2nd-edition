@@ -35,10 +35,10 @@ class StatementTest {
         // 실행 및 결과 확인
         String result = statement.statement(invoice);
         String expected = "청구 내역 (고객명: BigCo)\n" +
-                " Hamlet: 650.00 (55석)\n" +
-                " As You Like It: 580.00 (35석)\n" +
-                " Othello: 500.00 (40석)\n" +
-                "총액: 1730.00\n" +
+                " Hamlet: $650.00 (55석)\n" +
+                " As You Like It: $580.00 (35석)\n" +
+                " Othello: $500.00 (40석)\n" +
+                "총액: $1,730.00\n" +
                 "적립 포인트: 47점\n";
 
         // 결과 검증
